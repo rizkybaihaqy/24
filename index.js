@@ -156,12 +156,11 @@ function removeNumber() {
   state.currentCol--;
 }
 
-(function() {
+(function () {
   const game = document.getElementById("game");
   drawGrid(game);
 
   registerKeyboardEvents();
-  console.log(state.secret);
 })();
 
 function generate24() {
