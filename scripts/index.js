@@ -45,26 +45,57 @@ function registerKeyboardEvents() {
   document.body.onkeydown = (e) => {
     const key = e.key;
     if (key === "Enter") {
-      if (state.currentCol === 4) {
-        const nums = getCurrentNums();
-        if (isNumsValid(nums)) {
-          revealNums(nums);
-          state.currentRow++;
-          state.currentCol = 0;
-        } else {
-          alert("Not 24!");
-        }
-      }
+      onEnter();
     }
     if (key === "Backspace") {
-      removeNumber();
+      onBackspace();
     }
     if (isNumber(key)) {
-      addNumber(key);
+      onNumber(key);
     }
-
-    updateGrid();
   };
+
+  const buttons = document.getElementsByClassName("key");
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function () {
+      const buttonValue = buttons[i].textContent;
+
+      if (buttonValue === "⏎") {
+        onEnter();
+      }
+      if (buttonValue === "⌫") {
+        onBackspace();
+      }
+      if (!isNaN(parseInt(buttonValue))) {
+        onNumber(buttonValue);
+      }
+    });
+  }
+}
+
+function onEnter() {
+  if (state.currentCol === 4) {
+    const nums = getCurrentNums();
+    if (isNumsValid(nums)) {
+      revealNums(nums);
+      state.currentRow++;
+      state.currentCol = 0;
+    } else {
+      alert("Not 24!");
+    }
+  }
+  updateGrid();
+}
+
+function onBackspace() {
+  removeNumber();
+  updateGrid();
+}
+
+function onNumber(number) {
+  addNumber(number);
+  updateGrid();
 }
 
 function getCurrentNums() {

@@ -1,0 +1,21 @@
+#keyboard {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+#keyboard .board {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+#keyboard .key {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--empty);
+  margin: 4px;
+  color: white;
+  background-color: var(--default);
+}
