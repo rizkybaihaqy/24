@@ -44,79 +44,79 @@ function registerKeyboardEvents() {
     const key = e.key;
     if (key === "Enter") {
       if (state.currentCol === 4) {
-        const word = getCurrentWord();
-        if (isWordValid(word)) {
-          revealWord(word);
+        const nums = getCurrentNums();
+        if (isNumsValid(nums)) {
+          revealNums(nums);
           state.currentRow++;
           state.currentCol = 0;
         } else {
-          alert("Not a valid word.");
+          alert("Not 24!");
         }
       }
     }
     if (key === "Backspace") {
-      removeLetter();
+      removeNumber();
     }
-    if (isLetter(key)) {
-      addLetter(key);
+    if (isNumber(key)) {
+      addNumber(key);
     }
 
     updateGrid();
   };
 }
 
-function getCurrentWord() {
+function getCurrentNums() {
   return state.grid[state.currentRow].reduce((prev, curr) => prev + curr);
 }
 
-function isWordValid(word) {
-  return judgePoint24(word);
+function isNumsValid(nums) {
+  return judgePoint24(nums);
 }
 
-function getNumOfOccurrencesInWord(word, letter) {
+function getNumOfOccurrencesInWord(nums, number) {
   let result = 0;
-  for (let i = 0; i < word.length; i++) {
-    if (word[i] === letter) {
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === number) {
       result++;
     }
   }
   return result;
 }
 
-function getPositionOfOccurrence(word, letter, position) {
+function getPositionOfOccurrence(nums, number, position) {
   let result = 0;
   for (let i = 0; i <= position; i++) {
-    if (word[i] === letter) {
+    if (nums[i] === number) {
       result++;
     }
   }
   return result;
 }
 
-function revealWord(guess) {
+function revealNums(guess) {
   const row = state.currentRow;
   const animation_duration = 500; // ms
 
   for (let i = 0; i < 4; i++) {
     const box = document.getElementById(`box${row}${i}`);
-    const letter = box.textContent;
+    const number = box.textContent;
     const numOfOccurrencesSecret = getNumOfOccurrencesInWord(
       state.secret,
-      letter
+      number
     );
-    const numOfOccurrencesGuess = getNumOfOccurrencesInWord(guess, letter);
-    const letterPosition = getPositionOfOccurrence(guess, letter, i);
+    const numOfOccurrencesGuess = getNumOfOccurrencesInWord(guess, number);
+    const numberPosition = getPositionOfOccurrence(guess, number, i);
 
     setTimeout(() => {
       if (
         numOfOccurrencesGuess > numOfOccurrencesSecret &&
-        letterPosition > numOfOccurrencesSecret
+        numberPosition > numOfOccurrencesSecret
       ) {
         box.classList.add("empty");
       } else {
-        if (letter === state.secret[i]) {
+        if (number === state.secret[i]) {
           box.classList.add("right");
-        } else if (state.secret.includes(letter)) {
+        } else if (state.secret.includes(number)) {
           box.classList.add("wrong");
         } else {
           box.classList.add("empty");
@@ -135,22 +135,22 @@ function revealWord(guess) {
     if (isWinner) {
       alert("Congratulations!");
     } else if (isGameOver) {
-      alert(`Better luck next time! The word was ${state.secret}.`);
+      alert(`Better luck next time! The numbers was ${state.secret}.`);
     }
   }, 3 * animation_duration);
 }
 
-function isLetter(key) {
+function isNumber(key) {
   return key.length === 1 && key.match(/[1-9]/i);
 }
 
-function addLetter(letter) {
+function addNumber(number) {
   if (state.currentCol === 4) return;
-  state.grid[state.currentRow][state.currentCol] = letter;
+  state.grid[state.currentRow][state.currentCol] = number;
   state.currentCol++;
 }
 
-function removeLetter() {
+function removeNumber() {
   if (state.currentCol === 0) return;
   state.grid[state.currentRow][state.currentCol - 1] = "";
   state.currentCol--;
