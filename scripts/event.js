@@ -1,6 +1,7 @@
-import { addNumber, getCurrentNums, removeNumber } from "./data";
-import { revealGrid, updateGrid } from "./dom";
-import { isNumsValid } from "./utils";
+import { addNumber, getCurrentNums, removeNumber } from "./data.js";
+import { revealGrid, updateGrid } from "./dom.js";
+import { isNumsValid, isNumber } from "./utils.js";
+import { AnimationDuration } from "./const.js";
 
 function onEnter(state) {
   if (state.currentCol === 4) {
