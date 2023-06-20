@@ -1,0 +1,1 @@
+export const AnimationDuration = 500; //ms
