@@ -1,3 +1,5 @@
+import { judgePoint24 } from "./24.js";
+
 export function isNumber(key) {
   return key.length === 1 && key.match(/[1-9]/i);
 }
