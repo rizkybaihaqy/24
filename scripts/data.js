@@ -1,6 +1,6 @@
 import { generate24 } from "./24.js";
 
-export const STATE = {
+export const State = {
   secret: generate24().join(""),
   grid: Array(6)
     .fill()
@@ -9,6 +9,12 @@ export const STATE = {
   currentCol: 0,
 };
 
+/**
+ *
+ * @param {State} state
+ * @param {string} number
+ * @returns {State}
+ */
 export function addNumber(state, number) {
   if (state.currentCol === 4) return;
   state.grid[state.currentRow][state.currentCol] = number;
@@ -17,6 +23,11 @@ export function addNumber(state, number) {
   return state;
 }
 
+/**
+ *
+ * @param {State} state
+ * @returns {State}
+ */
 export function removeNumber(state) {
   if (state.currentCol === 0) return;
   state.grid[state.currentRow][state.currentCol - 1] = "";
@@ -25,6 +36,11 @@ export function removeNumber(state) {
   return state;
 }
 
+/**
+ *
+ * @param {State} state
+ * @returns {string}
+ */
 export function getCurrentNums(state) {
   return state.grid[state.currentRow].reduce((prev, curr) => prev + curr);
 }

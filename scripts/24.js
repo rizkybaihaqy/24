@@ -1,3 +1,7 @@
+/**
+ *
+ * @returns {number[]}
+ */
 export function generate24() {
   const candidates = Array.from({ length: 4 }, () =>
     Math.floor(1 + Math.random() * 9)
@@ -9,6 +13,11 @@ export function generate24() {
   }
 }
 
+/**
+ *
+ * @param {number[]} nums
+ * @returns {boolean}
+ */
 export function judgePoint24(nums) {
   function generate(a, b) {
     return [

@@ -3,6 +3,10 @@ import { revealGrid, updateGrid } from "./dom.js";
 import { isNumsValid, isNumber } from "./utils.js";
 import { AnimationDuration } from "./const.js";
 
+/**
+ *
+ * @param {State} state
+ */
 function onEnter(state) {
   if (state.currentCol === 4) {
     const nums = getCurrentNums(state);
@@ -18,7 +22,6 @@ function onEnter(state) {
       if (state.secret === nums) {
         alert("Congratulations!");
       } else if (state.currentRow === 5) {
-        console.log(state.currentRow);
         alert(`Better luck next time! The numbers was ${state.secret}.`);
       }
 
@@ -28,14 +31,25 @@ function onEnter(state) {
   }
 }
 
+/**
+ * @param {State} state
+ */
 function onBackspace(state) {
   updateGrid(removeNumber(state));
 }
 
+/**
+ *
+ * @param {State} state
+ * @param {string} number
+ */
 function onNumber(state, number) {
   updateGrid(addNumber(state, number));
 }
 
+/**
+ * @param {State} state
+ */
 export function registerOnScreenKeyboardEvents(state) {
   const buttons = document.getElementsByClassName("key");
 
@@ -56,6 +70,9 @@ export function registerOnScreenKeyboardEvents(state) {
   }
 }
 
+/**
+ * @param {State} state
+ */
 export function registerKeyboardEvents(state) {
   document.body.onkeydown = (e) => {
     const key = e.key;

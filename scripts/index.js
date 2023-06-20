@@ -1,4 +1,4 @@
-import { STATE } from "./data.js";
+import { State } from "./data.js";
 import { drawGrid } from "./dom.js";
 import {
   registerKeyboardEvents,
@@ -9,6 +9,6 @@ import {
   const game = document.getElementById("game");
   game.appendChild(drawGrid());
 
-  registerKeyboardEvents(STATE);
-  registerOnScreenKeyboardEvents(STATE);
+  registerKeyboardEvents(State);
+  registerOnScreenKeyboardEvents(State);
 })();
