@@ -1,27 +1,26 @@
 import { AnimationDuration } from "./const.js";
 import { getNumOfOccurrencesInWord, getPositionOfOccurrence } from "./utils.js";
 
-export function drawBox(container, row, col, content = "") {
+function drawBox(row, col, content = "") {
   const box = document.createElement("div");
   box.className = "box";
   box.textContent = content;
   box.id = `box${row}${col}`;
 
-  container.appendChild(box);
   return box;
 }
 
-export function drawGrid(container) {
+export function drawGrid() {
   const grid = document.createElement("div");
   grid.className = "grid";
 
   for (let i = 0; i < 6; i++) {
     for (let j = 0; j < 4; j++) {
-      drawBox(grid, i, j);
+      grid.appendChild(drawBox(i, j));
     }
   }
 
-  container.appendChild(grid);
+  return grid;
 }
 
 export function updateGrid(state) {
@@ -31,8 +30,6 @@ export function updateGrid(state) {
       box.textContent = state.grid[i][j];
     }
   }
-
-  console.log(state);
 }
 
 export function revealGrid(state, guess) {

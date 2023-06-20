@@ -7,7 +7,7 @@ import {
 
 (function () {
   const game = document.getElementById("game");
-  drawGrid(game);
+  game.appendChild(drawGrid());
 
   registerKeyboardEvents(STATE);
   registerOnScreenKeyboardEvents(STATE);
