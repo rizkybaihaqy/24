@@ -26,7 +26,7 @@ export function drawGrid() {
   grid.className = "grid";
 
   for (let i = 0; i < 6; i++) {
-    for (let j = 0; j < 4; j++) {
+    for (let j = 0; j < 13; j++) {
       grid.appendChild(drawBox(i, j));
     }
   }
@@ -45,6 +45,8 @@ export function updateGrid(state) {
       box.textContent = state.grid[i][j];
     }
   }
+
+  console.log(state);
 }
 
 /**
@@ -55,7 +57,7 @@ export function updateGrid(state) {
 export function revealGrid(state, guess) {
   const row = state.currentRow;
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 13; i++) {
     const box = document.getElementById(`box${row}${i}`);
     const number = box.textContent;
     const numOfOccurrencesSecret = getNumOfOccurrencesInWord(
@@ -64,7 +66,7 @@ export function revealGrid(state, guess) {
     );
     const numOfOccurrencesGuess = getNumOfOccurrencesInWord(guess, number);
     const numberPosition = getPositionOfOccurrence(guess, number, i);
-
+    console.log(state.secret);
     setTimeout(() => {
       if (
         numOfOccurrencesGuess > numOfOccurrencesSecret &&

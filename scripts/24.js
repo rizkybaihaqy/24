@@ -1,13 +1,13 @@
+import { NUMBER } from "./const.js";
+
 /**
  *
  * @returns {number[]}
  */
 export function generate24() {
-  const candidates = Array.from({ length: 4 }, () =>
-    Math.floor(1 + Math.random() * 9)
-  );
-  if (find24Expressions(candidates) !== []) {
-    return candidates;
+  const candidates = find24Expressions(NUMBER);
+  if (candidates !== []) {
+    return candidates[Math.floor(Math.random() * candidates.length)];
   } else {
     return generate24();
   }

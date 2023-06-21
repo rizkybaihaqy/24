@@ -1,10 +1,10 @@
 import { generate24 } from "./24.js";
 
 export const State = {
-  secret: generate24().join(""),
+  secret: generate24(),
   grid: Array(6)
     .fill()
-    .map(() => Array(4).fill("")),
+    .map(() => Array(13).fill("")),
   currentRow: 0,
   currentCol: 0,
 };
@@ -12,12 +12,11 @@ export const State = {
 /**
  *
  * @param {State} state
- * @param {string} number
+ * @param {string} character
  * @returns {State}
  */
-export function addNumber(state, number) {
-  if (state.currentCol === 4) return;
-  state.grid[state.currentRow][state.currentCol] = number;
+export function addCharacter(state, character) {
+  state.grid[state.currentRow][state.currentCol] = character;
   state.currentCol++;
 
   return state;
@@ -29,7 +28,6 @@ export function addNumber(state, number) {
  * @returns {State}
  */
 export function removeNumber(state) {
-  if (state.currentCol === 0) return;
   state.grid[state.currentRow][state.currentCol - 1] = "";
   state.currentCol--;
 

@@ -1,12 +1,23 @@
 import { find24Expressions } from "./24.js";
+import { NUMBER } from "./const.js";
 
 /**
  *
  * @param {string} key
  * @returns {boolean}
  */
-export function isNumber(key) {
-  return key.length === 1 && key.match(/[1-9]/i);
+export function isValidKey(key) {
+  return (
+    key.length === 1 &&
+    key.match(
+      new RegExp(
+        [
+          ...NUMBER,
+          ...["*", "+", "-", "/", "(", ")"].map((char) => "\\" + char),
+        ].join("|")
+      )
+    )
+  );
 }
 
 /**

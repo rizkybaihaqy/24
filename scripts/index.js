@@ -11,4 +11,5 @@ import {
 
   registerKeyboardEvents(State);
   registerOnScreenKeyboardEvents(State);
+  console.log(State);
 })();

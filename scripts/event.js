@@ -1,6 +1,6 @@
-import { addNumber, getCurrentNums, removeNumber } from "./data.js";
+import { addCharacter, getCurrentNums, removeNumber } from "./data.js";
 import { revealGrid, updateGrid } from "./dom.js";
-import { isNumsValid, isNumber } from "./utils.js";
+import { isNumsValid, isValidKey } from "./utils.js";
 import { AnimationDuration } from "./const.js";
 
 /**
@@ -8,13 +8,13 @@ import { AnimationDuration } from "./const.js";
  * @param {State} state
  */
 function onEnter(state) {
-  if (state.currentCol === 4) {
+  if (state.currentCol === 13) {
     const nums = getCurrentNums(state);
 
-    if (!isNumsValid(nums)) {
-      alert("Not 24!");
-      return;
-    }
+    // if (!isNumsValid(nums)) {
+    //   alert("Not 24!");
+    //   return;
+    // }
 
     revealGrid(state, nums);
 
@@ -22,7 +22,7 @@ function onEnter(state) {
       if (state.secret === nums) {
         alert("Congratulations!");
       } else if (state.currentRow === 5) {
-        alert(`Better luck next time! The numbers was ${state.secret}.`);
+        alert(`Better luck next time! The expresion was ${state.secret}.`);
       }
 
       state.currentRow++;
@@ -35,16 +35,18 @@ function onEnter(state) {
  * @param {State} state
  */
 function onBackspace(state) {
+  if (state.currentCol === 0) return;
   updateGrid(removeNumber(state));
 }
 
 /**
  *
  * @param {State} state
- * @param {string} number
+ * @param {string} character
  */
-function onNumber(state, number) {
-  updateGrid(addNumber(state, number));
+function onCharacter(state, character) {
+  if (state.currentCol === 13) return;
+  updateGrid(addCharacter(state, character));
 }
 
 /**
@@ -63,8 +65,8 @@ export function registerOnScreenKeyboardEvents(state) {
       if (buttonValue === "⌫") {
         onBackspace(state);
       }
-      if (!isNaN(parseInt(buttonValue))) {
-        onNumber(state, buttonValue);
+      if (isValidKey(buttonValue)) {
+        onCharacter(state, buttonValue);
       }
     });
   }
@@ -82,8 +84,8 @@ export function registerKeyboardEvents(state) {
     if (key === "Backspace") {
       onBackspace(state);
     }
-    if (isNumber(key)) {
-      onNumber(state, key);
+    if (isValidKey(key)) {
+      onCharacter(state, key);
     }
   };
 }
