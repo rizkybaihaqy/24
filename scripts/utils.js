@@ -20,7 +20,7 @@ export function isKeyValid(key) {
  * @returns {boolean}
  */
 export function isExpressionValid(nums) {
-  return eval(nums) === 24 && /\(\d{1}\*\d{1}\)\/\(\d{1}\+\d{1}\)/.test(nums);
+  return eval(nums) === 24;
 }
 
 /**
