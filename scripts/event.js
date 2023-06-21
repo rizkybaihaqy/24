@@ -1,33 +1,33 @@
-import { addNumber, getCurrentNums, removeNumber } from "./data.js";
+import { addCharacter, getCurrentExpression, removeCharacter } from "./data.js";
 import { revealGrid, updateGrid } from "./dom.js";
-import { isNumsValid, isNumber } from "./utils.js";
-import { AnimationDuration } from "./const.js";
+import { isExpressionValid, isKeyValid } from "./utils.js";
+import { ANIMATION_DURATION } from "./const.js";
 
 /**
  *
  * @param {State} state
  */
 function onEnter(state) {
-  if (state.currentCol === 4) {
-    const nums = getCurrentNums(state);
+  if (state.currentCol === 11) {
+    const expression = getCurrentExpression(state);
 
-    if (!isNumsValid(nums)) {
-      alert("Not 24!");
+    if (!isExpressionValid(expression)) {
+      alert("Invalid expression!");
       return;
     }
 
-    revealGrid(state, nums);
+    revealGrid(state, expression);
 
     setTimeout(() => {
-      if (state.secret === nums) {
+      if (state.secret === expression) {
         alert("Congratulations!");
       } else if (state.currentRow === 5) {
-        alert(`Better luck next time! The numbers was ${state.secret}.`);
+        alert(`Better luck next time! The expresion was ${state.secret}.`);
       }
 
       state.currentRow++;
       state.currentCol = 0;
-    }, 3 * AnimationDuration);
+    }, (13 * ANIMATION_DURATION) / 2);
   }
 }
 
@@ -35,16 +35,18 @@ function onEnter(state) {
  * @param {State} state
  */
 function onBackspace(state) {
-  updateGrid(removeNumber(state));
+  if (state.currentCol === 0) return;
+  updateGrid(removeCharacter(state));
 }
 
 /**
  *
  * @param {State} state
- * @param {string} number
+ * @param {string} character
  */
-function onNumber(state, number) {
-  updateGrid(addNumber(state, number));
+function onCharacter(state, character) {
+  if (state.currentCol === 11) return;
+  updateGrid(addCharacter(state, character));
 }
 
 /**
@@ -63,8 +65,8 @@ export function registerOnScreenKeyboardEvents(state) {
       if (buttonValue === "⌫") {
         onBackspace(state);
       }
-      if (!isNaN(parseInt(buttonValue))) {
-        onNumber(state, buttonValue);
+      if (isKeyValid(buttonValue)) {
+        onCharacter(state, buttonValue);
       }
     });
   }
@@ -82,8 +84,8 @@ export function registerKeyboardEvents(state) {
     if (key === "Backspace") {
       onBackspace(state);
     }
-    if (isNumber(key)) {
-      onNumber(state, key);
+    if (isKeyValid(key)) {
+      onCharacter(state, key);
     }
   };
 }

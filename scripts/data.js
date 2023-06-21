@@ -1,10 +1,10 @@
-import { generate24 } from "./24.js";
+import { EXPRESSION } from "./const.js";
 
 export const State = {
-  secret: generate24().join(""),
+  secret: EXPRESSION,
   grid: Array(6)
     .fill()
-    .map(() => Array(4).fill("")),
+    .map(() => Array(11).fill("")),
   currentRow: 0,
   currentCol: 0,
 };
@@ -12,12 +12,11 @@ export const State = {
 /**
  *
  * @param {State} state
- * @param {string} number
+ * @param {string} character
  * @returns {State}
  */
-export function addNumber(state, number) {
-  if (state.currentCol === 4) return;
-  state.grid[state.currentRow][state.currentCol] = number;
+export function addCharacter(state, character) {
+  state.grid[state.currentRow][state.currentCol] = character;
   state.currentCol++;
 
   return state;
@@ -28,8 +27,7 @@ export function addNumber(state, number) {
  * @param {State} state
  * @returns {State}
  */
-export function removeNumber(state) {
-  if (state.currentCol === 0) return;
+export function removeCharacter(state) {
   state.grid[state.currentRow][state.currentCol - 1] = "";
   state.currentCol--;
 
@@ -41,6 +39,6 @@ export function removeNumber(state) {
  * @param {State} state
  * @returns {string}
  */
-export function getCurrentNums(state) {
+export function getCurrentExpression(state) {
   return state.grid[state.currentRow].reduce((prev, curr) => prev + curr);
 }
