@@ -52,7 +52,7 @@ function drawKey(content) {
  * @returns {HTMLDivElement}
  */
 export function drawKeyboard() {
-  const keys = [...NUMBER, ...OPERATOR, "⏎", "⌫"];
+  const keys = [...NUMBER, ...OPERATOR, "⌫", "⏎"];
   const keyboard = document.createElement("div");
   keyboard.className = "board";
   for (let i = 0; i < keys.length; i++) {
