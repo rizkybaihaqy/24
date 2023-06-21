@@ -1,6 +1,6 @@
 import { addCharacter, getCurrentNums, removeNumber } from "./data.js";
 import { revealGrid, updateGrid } from "./dom.js";
-import { isNumsValid, isValidKey } from "./utils.js";
+import { isGuessValid, isValidKey } from "./utils.js";
 import { AnimationDuration } from "./const.js";
 
 /**
@@ -11,10 +11,10 @@ function onEnter(state) {
   if (state.currentCol === 11) {
     const nums = getCurrentNums(state);
 
-    // if (!isNumsValid(nums)) {
-    //   alert("Not 24!");
-    //   return;
-    // }
+    if (!isGuessValid(nums)) {
+      alert("Not 24!");
+      return;
+    }
 
     revealGrid(state, nums);
 

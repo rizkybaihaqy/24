@@ -1,4 +1,3 @@
-import { find24Expressions } from "./24.js";
 import { NUMBER, OPERATOR } from "./const.js";
 
 /**
@@ -20,8 +19,8 @@ export function isValidKey(key) {
  * @param {string} nums
  * @returns {boolean}
  */
-export function isNumsValid(nums) {
-  return find24Expressions(Array.from(String(nums), Number)) !== [];
+export function isGuessValid(nums) {
+  return eval(nums) === 24 && /\(\d{1}\*\d{1}\)\/\(\d{1}\+\d{1}\)/.test(nums);
 }
 
 /**
