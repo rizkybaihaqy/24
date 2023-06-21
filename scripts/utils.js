@@ -1,5 +1,5 @@
 import { find24Expressions } from "./24.js";
-import { NUMBER } from "./const.js";
+import { NUMBER, OPERATOR } from "./const.js";
 
 /**
  *
@@ -10,12 +10,7 @@ export function isValidKey(key) {
   return (
     key.length === 1 &&
     key.match(
-      new RegExp(
-        [
-          ...NUMBER,
-          ...["*", "+", "-", "/", "(", ")"].map((char) => "\\" + char),
-        ].join("|")
-      )
+      new RegExp([...NUMBER, ...OPERATOR.map((char) => "\\" + char)].join("|"))
     )
   );
 }

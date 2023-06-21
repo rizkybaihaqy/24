@@ -1,4 +1,4 @@
-import { AnimationDuration } from "./const.js";
+import { AnimationDuration, NUMBER, OPERATOR } from "./const.js";
 import { getNumOfOccurrencesInWord, getPositionOfOccurrence } from "./utils.js";
 
 /**
@@ -32,6 +32,34 @@ export function drawGrid() {
   }
 
   return grid;
+}
+
+/**
+ *
+ * @param {string} content
+ * @returns {HTMLDivElement}
+ */
+function drawKey(content) {
+  const key = document.createElement("button");
+  key.className = "key";
+  key.textContent = content;
+
+  return key;
+}
+
+/**
+ *
+ * @returns {HTMLDivElement}
+ */
+export function drawKeyboard() {
+  const keys = [...NUMBER, ...OPERATOR, "⏎", "⌫"];
+  const keyboard = document.createElement("div");
+  keyboard.className = "board";
+  for (let i = 0; i < keys.length; i++) {
+    keyboard.appendChild(drawKey(keys[i]));
+  }
+
+  return keyboard;
 }
 
 /**
