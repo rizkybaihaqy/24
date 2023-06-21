@@ -27,7 +27,7 @@ function onEnter(state) {
 
       state.currentRow++;
       state.currentCol = 0;
-    }, 3 * ANIMATION_DURATION);
+    }, (13 * ANIMATION_DURATION) / 2);
   }
 }
 
