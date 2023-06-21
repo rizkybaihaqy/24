@@ -26,7 +26,7 @@ export function drawGrid() {
   grid.className = "grid";
 
   for (let i = 0; i < 6; i++) {
-    for (let j = 0; j < 13; j++) {
+    for (let j = 0; j < 11; j++) {
       grid.appendChild(drawBox(i, j));
     }
   }
@@ -85,7 +85,7 @@ export function updateGrid(state) {
 export function revealGrid(state, guess) {
   const row = state.currentRow;
 
-  for (let i = 0; i < 13; i++) {
+  for (let i = 0; i < 11; i++) {
     const box = document.getElementById(`box${row}${i}`);
     const number = box.textContent;
     const numOfOccurrencesSecret = getNumOfOccurrencesInWord(

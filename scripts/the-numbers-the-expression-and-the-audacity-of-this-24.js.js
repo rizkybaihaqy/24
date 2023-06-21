@@ -10,7 +10,10 @@ export function theNumbersTheExpressionAndTheAudacityOfThis24() {
   );
   const candidates = find24Expressions(nums);
   if (candidates.length > 0) {
-    return [nums, candidates[Math.floor(Math.random() * candidates.length)]];
+    return [
+      nums,
+      candidates[Math.floor(Math.random() * candidates.length)].slice(1, -1),
+    ];
   } else {
     return theNumbersTheExpressionAndTheAudacityOfThis24();
   }

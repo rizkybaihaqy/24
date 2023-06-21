@@ -4,7 +4,7 @@ export const State = {
   secret: EXPRESSION,
   grid: Array(6)
     .fill()
-    .map(() => Array(13).fill("")),
+    .map(() => Array(11).fill("")),
   currentRow: 0,
   currentCol: 0,
 };

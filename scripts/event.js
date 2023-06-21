@@ -8,7 +8,7 @@ import { AnimationDuration } from "./const.js";
  * @param {State} state
  */
 function onEnter(state) {
-  if (state.currentCol === 13) {
+  if (state.currentCol === 11) {
     const nums = getCurrentNums(state);
 
     // if (!isNumsValid(nums)) {
@@ -45,7 +45,7 @@ function onBackspace(state) {
  * @param {string} character
  */
 function onCharacter(state, character) {
-  if (state.currentCol === 13) return;
+  if (state.currentCol === 11) return;
   updateGrid(addCharacter(state, character));
 }
 
