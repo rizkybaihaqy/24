@@ -1,4 +1,4 @@
-import { judgePoint24 } from "./24.js";
+import { find24Expressions } from "./24.js";
 
 /**
  *
@@ -15,7 +15,7 @@ export function isNumber(key) {
  * @returns {boolean}
  */
 export function isNumsValid(nums) {
-  return judgePoint24(Array.from(String(nums), Number));
+  return find24Expressions(Array.from(String(nums), Number)) !== [];
 }
 
 /**

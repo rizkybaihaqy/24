@@ -6,7 +6,7 @@ export function generate24() {
   const candidates = Array.from({ length: 4 }, () =>
     Math.floor(1 + Math.random() * 9)
   );
-  if (judgePoint24(candidates)) {
+  if (find24Expressions(candidates) !== []) {
     return candidates;
   } else {
     return generate24();
@@ -16,45 +16,53 @@ export function generate24() {
 /**
  *
  * @param {number[]} nums
- * @returns {boolean}
+ * @returns {string[]}
  */
-export function judgePoint24(nums) {
-  function generate(a, b) {
+export function find24Expressions(nums) {
+  function generateExpression(a, b) {
     return [
-      a * b,
-      b === 0 ? Infinity : a / b,
-      a === 0 ? Infinity : b / a,
-      a + b,
-      a - b,
-      b - a,
+      { expr: `(${a.expr}*${b.expr})`, value: a.value * b.value },
+      { expr: `(${a.expr}/${b.expr})`, value: a.value / b.value },
+      { expr: `(${b.expr}/${a.expr})`, value: b.value / a.value },
+      { expr: `(${a.expr}+${b.expr})`, value: a.value + b.value },
+      { expr: `(${a.expr}-${b.expr})`, value: a.value - b.value },
+      { expr: `(${b.expr}-${a.expr})`, value: b.value - a.value },
     ];
   }
 
-  function dfs(nums) {
+  function exploreExpressions(nums) {
     if (nums.length === 1) {
-      return Math.abs(nums[0] - 24.0) < 0.001;
+      if (Math.abs(nums[0].value - 24.0) < 0.001) {
+        return [nums[0].expr];
+      }
+      return [];
     }
+
+    const validExpressions = [];
 
     for (let i = 0; i < nums.length; i++) {
       for (let j = i + 1; j < nums.length; j++) {
-        const generated = generate(nums[i], nums[j]);
-        for (const num of generated) {
-          const nextRound = [num];
+        const generated = generateExpression(nums[i], nums[j]);
+        for (const result of generated) {
+          const nextRound = [{ expr: result.expr, value: result.value }];
           for (let k = 0; k < nums.length; k++) {
             if (k === i || k === j) {
               continue;
             }
             nextRound.push(nums[k]);
           }
-          if (dfs(nextRound)) {
-            return true;
+          const expressions = exploreExpressions(nextRound);
+          for (const expression of expressions) {
+            validExpressions.push(expression);
           }
         }
       }
     }
 
-    return false;
+    return validExpressions;
   }
 
-  return dfs(nums);
+  return exploreExpressions(
+    nums.map((num) => ({ expr: num.toString(), value: num }))
+  );
 }
