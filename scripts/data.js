@@ -1,7 +1,7 @@
-import { generate24 } from "./24.js";
+import { EXPRESSION } from "./const.js";
 
 export const State = {
-  secret: generate24(),
+  secret: EXPRESSION,
   grid: Array(6)
     .fill()
     .map(() => Array(13).fill("")),

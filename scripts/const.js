@@ -1,3 +1,6 @@
+import { theNumbersTheExpressionAndTheAudacityOfThis24 } from "./the-numbers-the-expression-and-the-audacity-of-this-24.js.js";
+
 export const AnimationDuration = 500; //ms
-export const NUMBER = [1, 3, 4, 6];
 export const OPERATOR = ["+", "-", "*", "/", "(", ")"];
+export const [NUMBER, EXPRESSION] =
+  theNumbersTheExpressionAndTheAudacityOfThis24();

@@ -1,18 +1,3 @@
-import { NUMBER } from "./const.js";
-
-/**
- *
- * @returns {number[]}
- */
-export function generate24() {
-  const candidates = find24Expressions(NUMBER);
-  if (candidates !== []) {
-    return candidates[Math.floor(Math.random() * candidates.length)];
-  } else {
-    return generate24();
-  }
-}
-
 /**
  *
  * @param {number[]} nums
