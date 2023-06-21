@@ -76,8 +76,6 @@ export function updateGrid(state) {
       box.textContent = state.grid[i][j];
     }
   }
-
-  console.log(state);
 }
 
 /**
