@@ -27,7 +27,7 @@ export function addCharacter(state, character) {
  * @param {State} state
  * @returns {State}
  */
-export function removeNumber(state) {
+export function removeCharacter(state) {
   state.grid[state.currentRow][state.currentCol - 1] = "";
   state.currentCol--;
 
@@ -39,6 +39,6 @@ export function removeNumber(state) {
  * @param {State} state
  * @returns {string}
  */
-export function getCurrentNums(state) {
+export function getCurrentExpression(state) {
   return state.grid[state.currentRow].reduce((prev, curr) => prev + curr);
 }

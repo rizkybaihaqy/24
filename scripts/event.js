@@ -1,7 +1,7 @@
-import { addCharacter, getCurrentNums, removeNumber } from "./data.js";
+import { addCharacter, getCurrentExpression, removeCharacter } from "./data.js";
 import { revealGrid, updateGrid } from "./dom.js";
-import { isGuessValid, isValidKey } from "./utils.js";
-import { AnimationDuration } from "./const.js";
+import { isExpressionValid, isKeyValid } from "./utils.js";
+import { ANIMATION_DURATION } from "./const.js";
 
 /**
  *
@@ -9,17 +9,17 @@ import { AnimationDuration } from "./const.js";
  */
 function onEnter(state) {
   if (state.currentCol === 11) {
-    const nums = getCurrentNums(state);
+    const expression = getCurrentExpression(state);
 
-    if (!isGuessValid(nums)) {
-      alert("Not 24!");
+    if (!isExpressionValid(expression)) {
+      alert("Invalid expression!");
       return;
     }
 
-    revealGrid(state, nums);
+    revealGrid(state, expression);
 
     setTimeout(() => {
-      if (state.secret === nums) {
+      if (state.secret === expression) {
         alert("Congratulations!");
       } else if (state.currentRow === 5) {
         alert(`Better luck next time! The expresion was ${state.secret}.`);
@@ -27,7 +27,7 @@ function onEnter(state) {
 
       state.currentRow++;
       state.currentCol = 0;
-    }, 3 * AnimationDuration);
+    }, 3 * ANIMATION_DURATION);
   }
 }
 
@@ -36,7 +36,7 @@ function onEnter(state) {
  */
 function onBackspace(state) {
   if (state.currentCol === 0) return;
-  updateGrid(removeNumber(state));
+  updateGrid(removeCharacter(state));
 }
 
 /**
@@ -65,7 +65,7 @@ export function registerOnScreenKeyboardEvents(state) {
       if (buttonValue === "⌫") {
         onBackspace(state);
       }
-      if (isValidKey(buttonValue)) {
+      if (isKeyValid(buttonValue)) {
         onCharacter(state, buttonValue);
       }
     });
@@ -84,7 +84,7 @@ export function registerKeyboardEvents(state) {
     if (key === "Backspace") {
       onBackspace(state);
     }
-    if (isValidKey(key)) {
+    if (isKeyValid(key)) {
       onCharacter(state, key);
     }
   };

@@ -1,5 +1,8 @@
-import { AnimationDuration, NUMBER, OPERATOR } from "./const.js";
-import { getNumOfOccurrencesInWord, getPositionOfOccurrence } from "./utils.js";
+import { ANIMATION_DURATION, NUMBER, OPERATOR } from "./const.js";
+import {
+  getNumOfOccurrencesInExpression,
+  getPositionOfOccurrence,
+} from "./utils.js";
 
 /**
  *
@@ -87,14 +90,16 @@ export function revealGrid(state, guess) {
 
   for (let i = 0; i < 11; i++) {
     const box = document.getElementById(`box${row}${i}`);
-    const number = box.textContent;
-    const numOfOccurrencesSecret = getNumOfOccurrencesInWord(
+    const character = box.textContent;
+    const numOfOccurrencesSecret = getNumOfOccurrencesInExpression(
       state.secret,
-      number
+      character
     );
-    const numOfOccurrencesGuess = getNumOfOccurrencesInWord(guess, number);
-    const numberPosition = getPositionOfOccurrence(guess, number, i);
-    console.log(state.secret);
+    const numOfOccurrencesGuess = getNumOfOccurrencesInExpression(
+      guess,
+      character
+    );
+    const numberPosition = getPositionOfOccurrence(guess, character, i);
     setTimeout(() => {
       if (
         numOfOccurrencesGuess > numOfOccurrencesSecret &&
@@ -102,17 +107,17 @@ export function revealGrid(state, guess) {
       ) {
         box.classList.add("empty");
       } else {
-        if (number === state.secret[i]) {
+        if (character === state.secret[i]) {
           box.classList.add("right");
-        } else if (state.secret.includes(number)) {
+        } else if (state.secret.includes(character)) {
           box.classList.add("wrong");
         } else {
           box.classList.add("empty");
         }
       }
-    }, ((i + 1) * AnimationDuration) / 2);
+    }, ((i + 1) * ANIMATION_DURATION) / 2);
 
     box.classList.add("animated");
-    box.style.animationDelay = `${(i * AnimationDuration) / 2}ms`;
+    box.style.animationDelay = `${(i * ANIMATION_DURATION) / 2}ms`;
   }
 }

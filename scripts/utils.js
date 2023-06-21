@@ -5,7 +5,7 @@ import { NUMBER, OPERATOR } from "./const.js";
  * @param {string} key
  * @returns {boolean}
  */
-export function isValidKey(key) {
+export function isKeyValid(key) {
   return (
     key.length === 1 &&
     key.match(
@@ -19,20 +19,20 @@ export function isValidKey(key) {
  * @param {string} nums
  * @returns {boolean}
  */
-export function isGuessValid(nums) {
+export function isExpressionValid(nums) {
   return eval(nums) === 24 && /\(\d{1}\*\d{1}\)\/\(\d{1}\+\d{1}\)/.test(nums);
 }
 
 /**
  *
- * @param {string} nums
- * @param {string} number
+ * @param {string} expression
+ * @param {string} character
  * @returns {number}
  */
-export function getNumOfOccurrencesInWord(nums, number) {
+export function getNumOfOccurrencesInExpression(expression, character) {
   let result = 0;
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] === number) {
+  for (let i = 0; i < expression.length; i++) {
+    if (expression[i] === character) {
       result++;
     }
   }
@@ -41,15 +41,15 @@ export function getNumOfOccurrencesInWord(nums, number) {
 
 /**
  *
- * @param {string} nums
- * @param {string} number
+ * @param {string} expression
+ * @param {string} character
  * @param {number} position
  * @returns {number}
  */
-export function getPositionOfOccurrence(nums, number, position) {
+export function getPositionOfOccurrence(expression, character, position) {
   let result = 0;
   for (let i = 0; i <= position; i++) {
-    if (nums[i] === number) {
+    if (expression[i] === character) {
       result++;
     }
   }
